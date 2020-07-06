@@ -15,6 +15,7 @@ public class Palindrome {
      * @since 2020/6/10 12:52
      */
     public static boolean isPalindrome(int x) {
+        String s = "" + x;
         return false;
     }
 }
