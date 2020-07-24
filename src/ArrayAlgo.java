@@ -16,20 +16,40 @@ public class ArrayAlgo {
      * @author Billson
      * @date 2020/7/24 7:08 上午
      */
-    public int pivotIndex(int[] nums) {
+    public static int pivotIndex(int[] nums) {
         int length = nums.length;
         if (length == 0) {
             return -1;
         }
-        // 当数组长度为1，左右侧元素的和都是0，所以数组的元素就是中心索引
         if (length == 1) {
             return 0;
         }
         for (int i = 0; i < length; i++) {
             int leftSum = 0;
             int rightSum = 0;
-            // TODO 待实现
+            if (i > 0) {
+                for (int j = 0; j < i; j++) {
+                    leftSum += nums[j];
+                }
+            }
+            if (i < length - 1) {
+                for (int j = i + 1; j < length; j++) {
+                    rightSum += nums[j];
+                }
+            }
+            if (leftSum == rightSum) {
+                return i;
+            }
         }
         return -1;
+    }
+
+    public static void main(String[] args) {
+        // 正确应该输出 3
+        int[] nums = new int[]{1, 7, 3, 6, 5, 6};
+        System.err.println(pivotIndex(nums));
+        // 正确应该输出 -1
+        nums = new int[]{1, 2, 3};
+        System.err.println(pivotIndex(nums));
     }
 }
