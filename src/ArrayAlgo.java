@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 /**
  * 数组模块的算法
  *
@@ -21,9 +23,6 @@ public class ArrayAlgo {
         if (length == 0) {
             return -1;
         }
-        if (length == 1) {
-            return 0;
-        }
         for (int i = 0; i < length; i++) {
             int leftSum = 0;
             int rightSum = 0;
@@ -44,12 +43,47 @@ public class ArrayAlgo {
         return -1;
     }
 
+    /**
+     * 寻找数组的中心索引优化版
+     *
+     * @param nums 整型数组
+     * @return int
+     * @author Billson
+     * @date 2020/7/24 13:48
+     */
+    public static int pivotIndexV2(int[] nums) {
+        int length = nums.length;
+        if (length == 0) {
+            return -1;
+        }
+        // 总和
+        int sum = 0;
+        for (int n : nums) {
+            sum += n;
+        }
+        // 左边总和
+        int sumLeft = 0;
+        for (int i = 0; i < length; i++) {
+            if (i > 0) {
+                sumLeft += nums[i - 1];
+            }
+            if (sum - sumLeft - nums[i] == sumLeft) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         // 正确应该输出 3
-        int[] nums = new int[]{1, 7, 3, 6, 5, 6};
-        System.err.println(pivotIndex(nums));
-        // 正确应该输出 -1
-        nums = new int[]{1, 2, 3};
-        System.err.println(pivotIndex(nums));
+        int[] nums = new int[]{2};
+        long start1 = System.currentTimeMillis();
+        int pivotIndex = pivotIndex(nums);
+        long end1 = System.currentTimeMillis();
+        System.err.println(pivotIndex + ",耗时：" + (end1 - start1));
+        long start2 = System.currentTimeMillis();
+        pivotIndex = pivotIndexV2(nums);
+        long end2 = System.currentTimeMillis();
+        System.err.println(pivotIndex + ",耗时：" + (end2 - start2));
     }
 }
