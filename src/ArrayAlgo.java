@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-
 /**
  * 数组模块的算法
  *
@@ -74,16 +72,35 @@ public class ArrayAlgo {
         return -1;
     }
 
+    /**
+     * 搜索插入位置
+     * PS: 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+     * 你可以假设数组中无重复元素。
+     *
+     * @param nums 有序整型数组
+     * @param target 目标值
+     * @return int
+     * @author Billson
+     * @date 2020/7/28 8:19 下午
+     */
+    public static int searchInsert(int[] nums, int target) {
+        int length = nums.length;
+        if (length == 0 || target < nums[0]) {
+            return 0;
+        }
+        if (target > nums[length - 1]) {
+            return length;
+        }
+        for (int i = 0; i < length; i++) {
+            if (target <= nums[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
-        // 正确应该输出 3
-        int[] nums = new int[]{2};
-        long start1 = System.currentTimeMillis();
-        int pivotIndex = pivotIndex(nums);
-        long end1 = System.currentTimeMillis();
-        System.err.println(pivotIndex + ",耗时：" + (end1 - start1));
-        long start2 = System.currentTimeMillis();
-        pivotIndex = pivotIndexV2(nums);
-        long end2 = System.currentTimeMillis();
-        System.err.println(pivotIndex + ",耗时：" + (end2 - start2));
+        int[] nums = {1,3,5,6};
+        System.out.println(searchInsert(nums, 0));
     }
 }
