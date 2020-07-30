@@ -84,6 +84,7 @@ public class ArrayAlgo {
      * @date 2020/7/28 8:19 下午
      */
     public static int searchInsert(int[] nums, int target) {
+        // 空间复杂度O(1)，时间复杂度O(n)
         int length = nums.length;
         if (length == 0 || target < nums[0]) {
             return 0;
@@ -99,8 +100,63 @@ public class ArrayAlgo {
         return -1;
     }
 
+    /**
+     * 在数组a中，查找key，返回key所在的位置
+     *
+     * @param nums 数组
+     * @param key  查找值
+     * @return int
+     * @author Billson
+     * @date 2020/7/29 9:40 下午
+     */
+    public static int find(int[] nums, int key) {
+        int length = nums.length;
+        if (length == 0) {
+            return -1;
+        }
+        int i = 0;
+        while (i < length) {
+            if (nums[i] == key) {
+                return i;
+            }
+            ++i;
+        }
+        return -1;
+    }
+
+    /**
+     * 在数组a中，查找key，返回key所在的位置(用哨兵实现)
+     *
+     * @param nums 数组
+     * @param key  查找值
+     * @return int
+     * @author Billson
+     * @date 2020/7/29 9:40 下午
+     */
+    public static int findBySentinel(int[] nums, int key) {
+        int length = nums.length;
+        if (length == 0) {
+            return -1;
+        }
+        if (key == nums[length - 1]) {
+            return length - 1;
+        }
+        int temp = nums[length - 1];
+        nums[length - 1] = key;
+        int i = 0;
+        while (nums[i] != key) {
+            ++i;
+        }
+
+        nums[length - 1] = temp;
+        if (i == length - 1) {
+            return -1;
+        } else {
+            return i;
+        }
+    }
+
     public static void main(String[] args) {
-        int[] nums = {1,3,5,6};
-        System.out.println(searchInsert(nums, 0));
+
     }
 }
